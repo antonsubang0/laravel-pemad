@@ -39,6 +39,9 @@
                             <a class="{{Request::is('home/penawaran*') ? 'nav-hover nav-link text-white fw-bold' : 'nav-hover nav-link text-white-50'}}" href="{{ route('tawar') }}">Penawaran</a>
                         </li>
                         <li class="nav-item">
+                            <a class="{{Request::is('home/permintaan*') ? 'nav-hover nav-link text-white fw-bold' : 'nav-hover nav-link text-white-50'}}" href="{{ route('permintaan.index') }}">Permintaan</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="{{Request::is('home/pembelian*') ? 'nav-hover nav-link text-white fw-bold' : 'nav-hover nav-link text-white-50'}}" href="{{ route('pembelian') }}">Pembelian</a>
                         </li>
                         <li class="nav-item">

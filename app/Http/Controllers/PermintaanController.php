@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Klien;
+use App\Models\Permintaan;
 use App\Models\Proyek;
 use App\Models\Tipepekerjaan;
 use Illuminate\Contracts\View\View;
@@ -11,20 +12,20 @@ use Illuminate\Http\Request;
 
 class PermintaanController extends Controller
 {
-    // tampilkan semua proyek
+    // tampilkan semua permintaan
     public function index() : View {
-        // data proyek
-        $proyeks = Proyek::with(['klien', 'tipekrj'])->latest()->paginate(5);
-        // tampilan data proyek
-        return view('home.proyek.index', compact('proyeks'));
+        // data permintaan
+        $permintaan = Permintaan::with(['klien', 'tipekrj'])->latest()->paginate(5);
+        // tampilan data permintaan
+        return view('home.permintaan.index', compact('permintaan'));
     }
 
-    // menampilkan form menambahakan proyek
+    // menampilkan form menambahakan permintaan
     public function create() : View
     {
         $tipe = Tipepekerjaan::all();
         $klien = Klien::all();
-        return view('home.proyek.create')->with('tipe', $tipe)->with('klien', $klien);
+        return view('home.permintaan.create')->with('tipe', $tipe)->with('klien', $klien);
     }
     // proses tambah proyek
     public function store(Request $request) : RedirectResponse
@@ -38,7 +39,7 @@ class PermintaanController extends Controller
         ]);
 
         // menyimpan data ke database
-        Proyek::create([
+        Permintaan::create([
             'proyek'     => $request->proyek,
             'harga_proyek'   => $request->harga_proyek,
             'tipepekerjaan_id'   => $request->tipepekerjaan_id,
@@ -46,25 +47,25 @@ class PermintaanController extends Controller
         ]);
 
         // kembalikan ke tampilan list proyek
-        return redirect()->route('proyek.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        return redirect()->route('permintaan.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
 
     // tampilkan detail proyek
     public function show(string $id) : View
     {
         // detail item proyek dengan user penambahnya
-        $proyeks = Proyek::with(['klien', 'tipekrj'])->findOrFail($id);
+        $permintaan = Permintaan::with(['klien', 'tipekrj'])->findOrFail($id);
         // tampilan data proyek
-        return view('home.proyek.show', compact('proyeks'));
+        return view('home.permintaan.show', compact('permintaan'));
     }
     // tampilkan form edit
     public function edit(string $id): View
     {
         // detail item proyek
-        $proyek = Proyek::with(['klien', 'tipekrj'])->findOrFail($id);
+        $permintaan = Permintaan::with(['klien', 'tipekrj'])->findOrFail($id);
         $tipe = Tipepekerjaan::all();
         $klien = Klien::all();
-        return view('home.proyek.edit', compact('proyek'))->with('tipe', $tipe)->with('klien', $klien);
+        return view('home.permintaan.edit', compact('permintaan'))->with('tipe', $tipe)->with('klien', $klien);
     }
     // proses update klien
     public function update(Request $request,string $id): RedirectResponse
@@ -77,9 +78,9 @@ class PermintaanController extends Controller
             'by_klien_id'  => 'required|numeric',
         ]);
         // tentukan titik point yg diupdate dengan id
-        $proyek = Proyek::findOrFail($id);
+        $permintaan = Permintaan::findOrFail($id);
         // update data ke database
-        $proyek->update([
+        $permintaan->update([
             'proyek'     => $request->proyek,
             'harga_proyek'   => $request->harga_proyek,
             'tipepekerjaan_id'   => $request->tipepekerjaan_id,
@@ -87,16 +88,32 @@ class PermintaanController extends Controller
         ]);
 
         // kembalikan ke tampilan list proyek
-        return redirect()->route('proyek.index')->with(['success' => 'Data Berhasil Diubah!']);
+        return redirect()->route('permintaan.index')->with(['success' => 'Data Berhasil Diubah!']);
     }
     // proses hapus proyek
     public function destroy(string $id) : RedirectResponse
     {
         // cari titik poin dengan id
-        $proyek = Proyek::findOrFail($id);
+        $permintaan = Permintaan::findOrFail($id);
         // pproses hapus proyek
-        $proyek->delete();
+        $permintaan->delete();
         // kembalikan ke tampilan list proyek
-        return redirect()->route('proyek.index')->with(['success' => 'Data Berhasil Dihapus!']);
+        return redirect()->route('permintaan.index')->with(['success' => 'Data Berhasil Dihapus!']);
+    }
+    public function terima(string $id) : RedirectResponse
+    {
+        // cari titik poin dengan id
+        $permintaan = Permintaan::where('id', $id);
+        $temp = $permintaan->first();
+        Proyek::create([
+            'proyek'     => $temp->proyek,
+            'harga_proyek'   => $temp->harga_proyek,
+            'tipepekerjaan_id'   => $temp->tipepekerjaan_id,
+            'by_klien_id' => $temp->by_klien_id,
+        ]);
+        // pproses hapus proyek
+        $permintaan->delete();
+        // kembalikan ke tampilan list proyek
+        return redirect()->route('permintaan.index')->with(['success' => 'Data Berhasil Dihapus!']);
     }
 }

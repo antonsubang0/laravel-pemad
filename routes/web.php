@@ -6,6 +6,7 @@ use App\Http\Controllers\KlienController;
 use App\Http\Controllers\PekerjaanContoller;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\PenawaranController;
+use App\Http\Controllers\PermintaanController;
 use App\Http\Controllers\ProyekContoller;
 use App\Http\Controllers\TagihanController;
 use App\Http\Controllers\TipePekrjaanContoller;
@@ -44,3 +45,5 @@ Route::put('/home/tagihan/{proyek}', [TagihanController::class, 'update'])->name
 Route::get('/home/penawaran', [PenawaranController::class, 'index'])->name('tawar')->middleware('auth');
 Route::put('/home/penawaran/{proyek}', [PenawaranController::class, 'update'])->name('updatetawar')->middleware('auth');
 Route::delete('/home/penawaran/{proyek}', [PenawaranController::class, 'destroy'])->name('deltawar')->middleware('auth');
+Route::resource('/home/permintaan', PermintaanController::class)->middleware('auth');
+Route::get('/home/terimapermintaan/{proyek}', [PermintaanController::class, 'terima'])->name('permintaan.terima')->middleware('auth');

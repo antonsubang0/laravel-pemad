@@ -1,6 +1,6 @@
 @extends('layout-auth')
 @section('title')
-List Proyek
+Permintaan Proyek
 @stop
 @section('content')
 <div class="card border-0 shadow rounded">
@@ -14,8 +14,8 @@ List Proyek
                 {{ session('error') }}
             </div>
         @endif
-        <h4 class="text-center fw-bolder">List Proyek</h4>
-        <a href="{{ route('proyek.create') }}" class="btn btn-md btn-success mb-3">Tambah Proyek</a>
+        <h4 class="text-center fw-bolder">Permintaan Proyek</h4>
+        <a href="{{ route('permintaan.create') }}" class="btn btn-md btn-success mb-3">Tambah Permintaan</a>
         <table class="table table-bordered">
             <thead>
                 <tr class="text-center">
@@ -24,12 +24,12 @@ List Proyek
                     <th scope="col">Harga</th>
                     <th scope="col">Tipe Pekerjaan</th>
                     <th scope="col">By</th>
-                    <th scope="col">Beli/Tawar</th>
+                    <th scope="col">Terima</th>
                     <th scope="col">Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                @forelse ($proyeks as $item)
+                @forelse ($permintaan as $item)
                 <tr>
                     <td>{{ $loop->index + 1 }}</td>
                     <td>{{ $item->proyek }}</td>
@@ -37,13 +37,12 @@ List Proyek
                     <td>{!! $item->tipekrj->tipe !!}</td>
                     <td>{!! $item->klien->name !!}</td>
                     <td>
-                        <a href="{{ route('proyekbeli', $item->id) }}" class="btn btn-sm mt-1 mt-xl-0 btn-dark">BELI</a>
-                        <a href="{{ route('tawarproyek', $item->id) }}" class="btn btn-sm mt-1 mt-xl-0 btn-dark">TAWAR</a>
+                        <a href="{{ route('permintaan.terima', $item->id) }}" class="btn btn-sm mt-1 mt-xl-0 btn-dark">TERIMA</a>
                     </td>
                     <td class="text-center">
-                        <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('proyek.destroy', $item->id) }}" method="POST">
-                            <a href="{{ route('proyek.show', $item->id) }}" class="btn btn-sm mt-1 mt-xl-0 btn-dark">SHOW</a>
-                            <a href="{{ route('proyek.edit', $item->id) }}" class="btn btn-sm mt-1 mt-xl-0 btn-primary">EDIT</a>
+                        <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('permintaan.destroy', $item->id) }}" method="POST">
+                            <a href="{{ route('permintaan.show', $item->id) }}" class="btn btn-sm mt-1 mt-xl-0 btn-dark">SHOW</a>
+                            <a href="{{ route('permintaan.edit', $item->id) }}" class="btn btn-sm mt-1 mt-xl-0 btn-primary">EDIT</a>
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-sm mt-1 mt-xl-0 btn-danger">HAPUS</button>
@@ -61,7 +60,7 @@ List Proyek
                 @endforelse
             </tbody>
         </table>
-        {{ $proyeks->links() }}
+        {{ $permintaan->links() }}
     </div>
 </div>
 @stop
