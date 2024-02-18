@@ -47,6 +47,10 @@
                         <li class="nav-item">
                             <a class="{{Request::is('home/tagihan*') ? 'nav-hover nav-link text-white fw-bold' : 'nav-hover nav-link text-white-50'}}" href="{{ route('tagihan') }}">Tagihan</a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="{{Request::is('home/perusahaan*') ? 'nav-hover nav-link text-white fw-bold' : 'nav-hover nav-link text-white-50'}}" href="{{ route('perusahaan.index') }}">Perusahaan</a>
+                        </li>
                     </ul>
                 </div>
             </div>

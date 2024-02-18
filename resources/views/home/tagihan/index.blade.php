@@ -1,6 +1,6 @@
 @extends('layout-auth')
 @section('title')
-Pembelian Proyek
+Tagihan Proyek
 @stop
 @section('content')
 <div class="card border-0 shadow rounded">

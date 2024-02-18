@@ -48,6 +48,6 @@ Route::put('/home/penawaran/{proyek}', [PenawaranController::class, 'update'])->
 Route::delete('/home/penawaran/{proyek}', [PenawaranController::class, 'destroy'])->name('deltawar')->middleware('auth');
 Route::resource('/home/permintaan', PermintaanController::class)->middleware('auth');
 Route::get('/home/terimapermintaan/{proyek}', [PermintaanController::class, 'terima'])->name('permintaan.terima')->middleware('auth');
-Route::get('/home/perusahaan', [PerusahaanController::class, 'index'])->middleware('auth');
-Route::get('/home/perusahaan/{proyek}/edit', [PerusahaanController::class, 'edit'])->middleware('auth');
-Route::put('/home/perusahaan/{proyek}/edit', [PerusahaanController::class, 'update'])->middleware('auth');
+Route::get('/home/perusahaan', [PerusahaanController::class, 'index'])->name('perusahaan.index')->middleware('auth');
+Route::get('/home/perusahaan/{proyek}/edit', [PerusahaanController::class, 'edit'])->name('perusahaan.edit')->middleware('auth');
+Route::put('/home/perusahaan/{proyek}/edit', [PerusahaanController::class, 'update'])->name('perusahaan.update')->middleware('auth');
