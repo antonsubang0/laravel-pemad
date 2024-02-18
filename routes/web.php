@@ -7,6 +7,7 @@ use App\Http\Controllers\PekerjaanContoller;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\PenawaranController;
 use App\Http\Controllers\PermintaanController;
+use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\ProyekContoller;
 use App\Http\Controllers\TagihanController;
 use App\Http\Controllers\TipePekrjaanContoller;
@@ -47,3 +48,6 @@ Route::put('/home/penawaran/{proyek}', [PenawaranController::class, 'update'])->
 Route::delete('/home/penawaran/{proyek}', [PenawaranController::class, 'destroy'])->name('deltawar')->middleware('auth');
 Route::resource('/home/permintaan', PermintaanController::class)->middleware('auth');
 Route::get('/home/terimapermintaan/{proyek}', [PermintaanController::class, 'terima'])->name('permintaan.terima')->middleware('auth');
+Route::get('/home/perusahaan', [PerusahaanController::class, 'index'])->middleware('auth');
+Route::get('/home/perusahaan/{proyek}/edit', [PerusahaanController::class, 'edit'])->middleware('auth');
+Route::put('/home/perusahaan/{proyek}/edit', [PerusahaanController::class, 'update'])->middleware('auth');
