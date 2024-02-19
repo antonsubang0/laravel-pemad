@@ -67,9 +67,9 @@ class Klien extends Model
         return $this->hasManyThrough(
             Tagihan::class,
             Proyek::class,
-            'aa',
-            'id', // 1a
             'by_klien_id',
+            'proyek_id', // 1a
+            'id',
             'id' //1a
         );
     }
