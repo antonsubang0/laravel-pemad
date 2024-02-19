@@ -164,6 +164,7 @@ Detail Klien
                     <th scope="col">Harga Final</th>
                     <th scope="col">Proyek Oleh</th>
                     <th scope="col">Status</th>
+                    <th scope="col">Pembeli</th>
                 </tr>
             </thead>
             <tbody>
