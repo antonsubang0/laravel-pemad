@@ -51,7 +51,7 @@ class KlienController extends Controller
     public function show(string $id) : View
     {
         // detail item klien dengan user penambahnya
-        $klien = Klien::with(['user', 'pekerjaan', 'tipepekerjaan'])->findOrFail($id);
+        $klien = Klien::with(['user', 'pekerjaan', 'tipepekerjaan', 'perusahaan', 'permintaan', 'proyek', 'pembelian'])->findOrFail($id);
         return view('home.klien.show', compact('klien'));
     }
     // tampilkan form edit

@@ -55,4 +55,22 @@ class Klien extends Model
     {
         return $this->hasMany(Pembelian::class, 'by_klien_id', 'id');
     }
+    public function tagihan()
+    {
+        // return $this->hasOneThrough(
+        //     Pekerjaan::class,
+        //     Tipepekerjaan::class,
+        //     'id',
+        //     'klien_id',
+        //     'id',
+        //     'id' );
+        return $this->hasManyThrough(
+            Tagihan::class,
+            Proyek::class,
+            'aa',
+            'id', // 1a
+            'by_klien_id',
+            'id' //1a
+        );
+    }
 }
